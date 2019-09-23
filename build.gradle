@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+group = 'com.cl'
+version = '0.0.1-SNAPSHOT'
+description = 'mybatisplus-demo'
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+        springRepo = 'http://repo.spring.io/libs-release'
+    }
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
+    }
+}
+
+
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+}
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'org.springframework.boot:spring-boot-starter-logging'
+    }
+
+    compile "org.springframework.boot:spring-boot-starter-log4j2"
+
+    // base64替代类
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compile group: 'org.apache.maven.plugins', name: 'maven-compiler-plugin', version: '3.8.1'
+
+    compile 'log4j:log4j:1.2.17'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
+    compile group: 'cn.hutool', name: 'hutool-all', version: '4.6.1'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.62'
+
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.1.1'
+    compile 'org.apache.shardingsphere:sharding-jdbc-spring-boot-starter:4.0.0-RC1'
+    compile 'org.apache.shardingsphere:sharding-jdbc-spring-namespace:4.0.0-RC1'
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
+    compile 'mysql:mysql-connector-java:5.1.40'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.0.3.RELEASE'
+    compileOnly 'junit:junit:4.12'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+configurations {
+    compile.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    compile.exclude group: "org.slf4j", module: "slf4j-log4j12"
+    compile.exclude group: "ch.qos.logback", module: "logback-classic"
+}
